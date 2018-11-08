@@ -21,6 +21,7 @@ class Pet
     case @req.path
     when '/'
       Rack::Response.new(render("form.html.erb"))
+
     when '/initialize'
       Rack::Response.new do |response|
         response.set_cookie('food', @food)
@@ -30,6 +31,10 @@ class Pet
         response.set_cookie('name', @req.params['name'])
         response.redirect('/start')
       end
+
+    when '/exit'
+        return Rack::Response.new("Game over", 404)
+
     when '/start'
       $NEEDS.each do |need|
         if get("#{need}") <= 0
@@ -38,11 +43,12 @@ class Pet
           return Rack::Response.new(render("index.html.erb"))
         end
       end
+
     when '/change'
-      return Logic.change_params(@req, 'food') if @req.params['food']
+      return Logic.change_params(@req, 'food')   if @req.params['food']
       return Logic.change_params(@req, 'health') if @req.params['health']
-      return Logic.change_params(@req, 'sleep') if @req.params['sleep']
-      return Logic.change_params(@req, 'happy') if @req.params['happy']
+      return Logic.change_params(@req, 'sleep')  if @req.params['sleep']
+      return Logic.change_params(@req, 'happy')  if @req.params['happy']
     else
       Rack::Response.new('Not Found', 404)
     end
