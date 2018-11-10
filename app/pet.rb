@@ -10,11 +10,12 @@ class Pet
 
   def initialize(env)
     @req    = Rack::Request.new(env)
-    @food   = 100
-    @health = 100
-    @sleep  = 100
-    @happy  = 100
-    $NEEDS  = %w[food health sleep happy]
+    @food   = 50
+    @health = 50
+    @sleep  = 50
+    @happy  = 50
+    @drink  = 0
+    $NEEDS  = %w[health food sleep happy]
   end
 
   def response
@@ -24,31 +25,43 @@ class Pet
 
     when '/initialize'
       Rack::Response.new do |response|
+        response.set_cookie('health', @health)
         response.set_cookie('food', @food)
         response.set_cookie('sleep', @sleep)
-        response.set_cookie('health', @health)
         response.set_cookie('happy', @happy)
+        response.set_cookie('drink', @drink)
         response.set_cookie('name', @req.params['name'])
         response.redirect('/start')
       end
 
     when '/exit'
-        return Rack::Response.new("Game over", 404)
+      Rack::Response.new(render("over.html.erb"))
+
+    when '/meditation'
+      if get("drink") >= 100
+        Rack::Response.new(render("complete.html.erb"))
+      else
+        Rack::Response.new(render("meditation.html.erb"))
+      end
+    when '/meditationtwo'
+        return Logic.megitation_params(@req, 'drink') if @req.params['drink']
 
     when '/start'
       $NEEDS.each do |need|
         if get("#{need}") <= 0
           return Rack::Response.new('Game Over', 404)
+        #  return Rack::Response.new(render("over.html.erb"))
         else
           return Rack::Response.new(render("index.html.erb"))
         end
       end
 
     when '/change'
-      return Logic.change_params(@req, 'food')   if @req.params['food']
       return Logic.change_params(@req, 'health') if @req.params['health']
+      return Logic.change_params(@req, 'food')   if @req.params['food']
       return Logic.change_params(@req, 'sleep')  if @req.params['sleep']
       return Logic.change_params(@req, 'happy')  if @req.params['happy']
+      return Logic.change_params(@req, 'drink')  if @req.params['drink']
     else
       Rack::Response.new('Not Found', 404)
     end

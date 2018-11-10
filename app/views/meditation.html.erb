@@ -8,40 +8,46 @@
   </head>
   <body style="text-align: center">
 
-  <h1> <%= name %> was born!!!!!</h1>
-  <img src="http://www.penguin-pictures.net/assets/images/cartoonpenguin.jpg" alt="penguin">
+  <h1> <%= name %> was meditation</h1>
+  <img src="https://image.freepik.com/free-vector/no-translate-detected_43633-3251.jpg?fbclid=IwAR1QnmRfgGcT5ntC_2kHQr-m3sx_QsSb8sLxYQ3ax3XJNfIoQODnIcBEZ6E" alt="ping" style="max-width: 500px; max-height: 500px">
 
-  <h3>Food   <%= get('food')  %></h3>
-  <h3>Health <%= get('health')%></h3>
-  <h3>Sleep  <%= get('sleep') %></h3>
-  <h3>Happy  <%= get('happy') %></h3>
+  <div class="" style="">
+    <!--<h3>Food: 0 </h3>
+    <h3>Health: 0 </h3>
+    <h3>Sleep: 0 </h3>
+    <h3>Happy: 0 </h3>-->
+    <h3>Drunk: <%= get('drink') %></h3>
+  </div>
 
-<div class="row" style="justify-content: center">
-  <form class="" action="/change" method="get">
+  <div class="row" style="justify-content: center">
 
-    <button type="submit" class="btn btn-outline-info" name="food" value="food">Food</button>
+    <!--<button type="submit" class="btn btn-outline-info" name="food" value="food">Food</button>
 
     <button type="submit" class="btn btn-outline-danger" name="health" value="health">Health</button>
 
     <button type="submit" class="btn btn-outline-success" name="sleep" value="sleep">Sleep</button>
 
-    <button type="submit" class="btn btn-outline-warning" name="happy" value="happy">Play</button>
+    <button type="submit" class="btn btn-outline-warning" name="happy" value="happy">Play</button>-->
 
-    <!--<button type="submit" class="btn btn-outline-warning" name="drink" value="drink">Beer</button>-->
+  <form class="" action="/meditationtwo" method="get" style="">
+
+    <button type="submit" class="btn btn-outline-success" name="drink"
+    value="drink">Beer</button>
 
   </form>
 
-  <form class="" action="/exit" method="get">
+  <form class="" action="/exit" method="get" style="">
 
     <button type="submit" class="btn btn-outline-dark" name="php" value="php">Learn PHP</button>
 
   </form>
 
-  <form class="" action="/meditation" method="get">
+  <form class="" action="/start" method="get" style="" ">
 
-    <button type="submit" class="btn btn-outline-dark" name="" value="">Meditation</button>
+    <button type="submit" class="btn btn-outline-info" name="" value="">Real world</button>
 
   </form>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
