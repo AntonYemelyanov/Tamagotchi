@@ -44,16 +44,13 @@ class Pet
         Rack::Response.new(render("meditation.html.erb"))
       end
     when '/meditationtwo'
-        return Logic.megitation_params(@req, 'drink') if @req.params['drink']
+        return Logic.meditation_params(@req, 'drink') if @req.params['drink']
 
     when '/start'
-      $NEEDS.each do |need|
-        if get("#{need}") <= 0
-          return Rack::Response.new('Game Over', 404)
-        #  return Rack::Response.new(render("over.html.erb"))
-        else
-          return Rack::Response.new(render("index.html.erb"))
-        end
+      if get("health") <=0 || get("food") <= 0 || get("sleep") <= 0 || get("happy") <= 0
+        return Rack::Response.new('Game Over', 404)
+      else
+        return Rack::Response.new(render("index.html.erb"))
       end
 
     when '/change'
