@@ -35,22 +35,24 @@ class Pet
       end
 
     when '/exit'
+      Rack::Response.new('Game Over', 404)
       Rack::Response.new(render("over.html.erb"))
 
     when '/meditation'
+      return Logic.meditation_params(@req, 'drink') if @req.params['drink']
       if get("drink") >= 100
+        Rack::Response.new('Game complete', 404)
         Rack::Response.new(render("complete.html.erb"))
       else
         Rack::Response.new(render("meditation.html.erb"))
       end
-    when '/meditationtwo'
-        return Logic.meditation_params(@req, 'drink') if @req.params['drink']
 
     when '/start'
       if get("health") <=0 || get("food") <= 0 || get("sleep") <= 0 || get("happy") <= 0
-        return Rack::Response.new('Game Over', 404)
+        Rack::Response.new('Game Over', 404)
+        Rack::Response.new(render("over.html.erb"))
       else
-        return Rack::Response.new(render("index.html.erb"))
+        Rack::Response.new(render("index.html.erb"))
       end
 
     when '/change'
