@@ -6,10 +6,8 @@ module Logic
 
       need = ($NEEDS - [name]).sample
 
-      response.set_cookie(need, req.cookies["#{need}"].to_i - rand(5..10))
-      #response.set_cookie(need, 0) if req.cookies["#{need}"].to_i < 0
-      #response.set_cookie(need, 100) if req.cookies["#{need}"].to_i > 100
-
+      response.set_cookie(need, req.cookies["#{need}"].to_i - 5 )
+   
       response.redirect('/start')
     end
   end
